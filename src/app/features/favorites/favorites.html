@@ -1,0 +1,22 @@
+<aside class="card highlight">
+  <h2>Favoriten <small>SignalStore</small></h2>
+
+  <p class="count">{{ store.totalFavoritesCount() }}</p>
+
+  <ul>
+    @for (post of store.liked(); track post.id) {
+      <li>
+        <span>{{ post.title }} <em class="muted">von {{ post.authorName }}</em></span>
+        <button class="like active" (click)="store.toggleLike(post)" aria-label="Favorit entfernen">
+          &hearts;
+        </button>
+      </li>
+    } @empty {
+      <li class="muted">Noch nichts geliked. Klicke das &hearts; bei einem Post.</li>
+    }
+  </ul>
+
+  @if (store.totalFavoritesCount()) {
+    <button (click)="store.clear()">Alle entfernen</button>
+  }
+</aside>

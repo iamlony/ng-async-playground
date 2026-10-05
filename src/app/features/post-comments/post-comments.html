@@ -1,0 +1,22 @@
+<div class="comments">
+  <div class="comments-head">
+    <strong>Kommentare <small class="muted">rxResource</small></strong>
+    <button class="link" (click)="comments.reload()">Neu laden</button>
+  </div>
+
+  @if (comments.isLoading()) {
+    <p class="muted">Lade Kommentare &hellip;</p>
+  } @else if (comments.error()) {
+    <p class="error">Kommentare konnten nicht geladen werden.</p>
+  } @else {
+    @for (comment of comments.value(); track comment.id) {
+      <p>
+        <strong>{{ comment.name }}</strong>
+        <em class="muted">&#64;{{ comment.email }}</em>
+      </p>
+      <p class="muted">{{ comment.body }}</p>
+    } @empty {
+      <p class="muted">Keine Kommentare vorhanden.</p>
+    }
+  }
+</div>

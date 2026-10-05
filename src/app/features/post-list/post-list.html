@@ -1,0 +1,40 @@
+<section class="card">
+  <h2>Posts von {{ user().name }} <small>Promise / async-await</small></h2>
+
+  @if (isLoading()) {
+    <p class="muted">Lade Posts &hellip;</p>
+  } @else if (errorMessage(); as message) {
+    <p class="error">{{ message }}</p>
+    <button (click)="loadPosts()">Nochmal versuchen</button>
+  } @else {
+    <ul class="posts">
+      @for (post of posts(); track post.id) {
+        <li>
+          <div class="post-head">
+            <strong>{{ post.title }}</strong>
+            <button
+              class="like"
+              [class.active]="favorites.likedIds().has(post.id)"
+              [attr.aria-pressed]="favorites.likedIds().has(post.id)"
+              (click)="toggleLike(post)"
+              aria-label="Post liken"
+            >
+              &hearts;
+            </button>
+          </div>
+          <p class="muted">{{ post.body }}</p>
+
+          <button class="link" (click)="toggleComments(post.id)">
+            {{ openPostId() === post.id ? 'Kommentare verbergen' : 'Kommentare ansehen' }}
+          </button>
+
+          @if (openPostId() === post.id) {
+            <app-post-comments [postId]="post.id" />
+          }
+        </li>
+      } @empty {
+        <li class="muted">Dieser User hat keine Posts.</li>
+      }
+    </ul>
+  }
+</section>

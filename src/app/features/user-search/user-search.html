@@ -1,0 +1,17 @@
+<section class="card">
+  <h2>User suchen <small>Observable</small></h2>
+
+  <input type="search" [formControl]="search" placeholder="Name eingeben, z. B. Clement" />
+
+  <ul>
+    @for (user of users$ | async; track user.id) {
+      <li>
+        <button class="link" (click)="userSelected.emit(user)">
+          {{ user.name }} <em class="muted">&#64;{{ user.username }}</em>
+        </button>
+      </li>
+    } @empty {
+      <li class="muted">Kein User gefunden.</li>
+    }
+  </ul>
+</section>

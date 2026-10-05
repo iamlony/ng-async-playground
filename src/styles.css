@@ -1,1 +1,145 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  color-scheme: light dark;
+  font-family: system-ui, sans-serif;
+}
+body {
+  margin: 0;
+  padding: 2rem;
+  max-width: 1100px;
+  margin-inline: auto;
+}
+h1 {
+  font-size: 1.4rem;
+  margin-bottom: 0.25rem;
+}
+h2 {
+  font-size: 1rem;
+  margin: 0 0 0.75rem;
+}
+h2 small {
+  font-weight: 400;
+  opacity: 0.55;
+  margin-left: 0.5rem;
+}
+
+.layout {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 2fr 1fr;
+  align-items: start;
+  margin-top: 1.5rem;
+}
+app-user-search,
+app-post-list,
+app-favorites {
+  display: block;
+}
+main {
+  display: grid;
+  gap: 1rem;
+}
+@media (max-width: 800px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.card {
+  border: 1px solid color-mix(in srgb, currentColor 20%, transparent);
+  border-radius: 10px;
+  padding: 1rem;
+}
+.card.highlight {
+  border-color: #6366f1;
+  position: sticky;
+  top: 1rem;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+li {
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+.posts > li {
+  border-bottom: 1px solid color-mix(in srgb, currentColor 12%, transparent);
+  padding-bottom: 0.6rem;
+}
+.post-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+aside li {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+input,
+button {
+  font: inherit;
+  padding: 0.4rem 0.6rem;
+  border-radius: 6px;
+  border: 1px solid color-mix(in srgb, currentColor 25%, transparent);
+  background: transparent;
+  color: inherit;
+}
+input {
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 0.75rem;
+}
+button {
+  cursor: pointer;
+}
+.link {
+  border: none;
+  padding: 0;
+  text-align: left;
+  color: #6366f1;
+  text-decoration: underline;
+  font-size: 0.85rem;
+}
+.like {
+  border: none;
+  padding: 0 0.3rem;
+  font-size: 1.1rem;
+  opacity: 0.4;
+}
+.like.active {
+  opacity: 1;
+  color: #e11d48;
+}
+
+.comments {
+  margin: 0.5rem 0 0 1rem;
+  padding: 0.5rem 0.75rem;
+  border-left: 2px solid #6366f1;
+}
+.comments-head {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+.comments p {
+  margin: 0.2rem 0 0;
+}
+.muted {
+  opacity: 0.6;
+  font-size: 0.8rem;
+}
+.error {
+  color: #dc2626;
+  font-size: 0.85rem;
+}
+.count {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem;
+}
