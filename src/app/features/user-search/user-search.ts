@@ -23,7 +23,6 @@ import { AsyncPipe } from '@angular/common';
   selector: 'app-user-search',
   imports: [AsyncPipe, ReactiveFormsModule],
   templateUrl: './user-search.html',
-  styleUrl: './user-search.css',
 })
 export class UserSearch {
   private readonly api = inject(ApiService);

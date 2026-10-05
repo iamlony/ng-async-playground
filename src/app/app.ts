@@ -1,17 +1,20 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { User } from './core/models';
 import { UserSearch } from './features/user-search/user-search';
 import { PostList } from './features/post-list/post-list';
 import { Favorites } from './features/favorites/favorites';
 
 /**
- * Dashboard-Shell.
+ * Shell mit zwei Ansichten:
+ *   kein User gewaehlt -> UserSearch   (Konzept 1: Observable)
+ *   User gewaehlt      -> PostList     (Konzept 2: Promise, enthaelt Konzept 3)
  *
- * Haelt nur den aktuell gewaehlten User und setzt die vier Bausteine zusammen:
- *   1. UserSearch   - Observable (valueChanges + switchMap)
- *   2. PostList     - Promise (fetch + async/await)
- *   3. PostComments - rxResource (steckt in der PostList)
- *   4. Favorites    - SignalStore
+ * Die Favoriten (Konzept 4: SignalStore) stehen daneben und bleiben immer
+ * sichtbar - so sieht man den Zaehler live hochgehen.
+ *
+ * Nebeneffekt des Umschaltens: "Zurueck" setzt `selectedUser` auf null, damit
+ * wird die PostList zerstoert. Beim naechsten User entsteht eine neue Instanz
+ * und `ngOnInit` laedt von selbst neu.
  */
 @Component({
   selector: 'app-root',
@@ -21,15 +24,4 @@ import { Favorites } from './features/favorites/favorites';
 })
 export class App {
   protected readonly selectedUser = signal<User | null>(null);
-
-  /**
-   * Trick fuer `@for` im Template: Durch `track user.id` baut Angular die
-   * PostList komplett neu auf, sobald ein *anderer* User gewaehlt wird.
-   * Damit laeuft `ngOnInit` - und damit der fetch - erneut.
-   * Mit einem einfachen `@if` bliebe die alte Instanz bestehen.
-   */
-  protected readonly selectedUsers = computed(() => {
-    const user = this.selectedUser();
-    return user ? [user] : [];
-  });
 }

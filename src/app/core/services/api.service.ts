@@ -20,7 +20,6 @@ export class ApiService {
 
   /** Observable: emittiert bei jedem Aufruf genau einmal und wird dann beendet. */
   searchUsers(term: string): Observable<User[]> {
-    // `params` kodiert den Suchbegriff korrekt (Leerzeichen, Umlaute, &, ...).
     return this.http.get<User[]>(`${BASE_URL}/users`, {
       params: { name_like: term },
     });

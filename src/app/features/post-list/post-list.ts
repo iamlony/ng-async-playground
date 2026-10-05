@@ -20,9 +20,9 @@ import { PostComments } from '../post-comments/post-comments';
  * nach einem `await` ein normales Feld geaendert hat - das Template wuerde nie
  * neu gerendert. Das Signal uebernimmt genau diese Benachrichtigung.
  *
- * Wichtig: `ngOnInit` laeuft nur einmal pro Komponenteninstanz. Damit beim
- * Wechsel des Users wirklich neu geladen wird, erzeugt das Dashboard pro User
- * eine frische Instanz (siehe `@for ... track user.id` in app.html).
+ * `ngOnInit` laeuft nur einmal pro Komponenteninstanz - das reicht hier, weil
+ * die Shell zwischen Suche und Posts umschaltet: Beim "Zurueck" wird diese
+ * Komponente zerstoert, beim naechsten User neu erzeugt.
  */
 @Component({
   selector: 'app-post-list',

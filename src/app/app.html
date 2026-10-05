@@ -3,19 +3,16 @@
 
 <div class="layout">
   <main>
-    <!-- 1. Observable: Suchfeld mit debounce + switchMap -->
-    <app-user-search (userSelected)="selectedUser.set($event)" />
-
-    <!-- 2. Promise: Posts des gewaehlten Users (3. rxResource steckt darin) -->
-    @for (user of selectedUsers(); track user.id) {
+    @if (selectedUser(); as user) {
+      <!-- Ansicht 2: Posts des gewaehlten Users -->
+      <button class="link back" (click)="selectedUser.set(null)">&larr; Zurueck zur Suche</button>
       <app-post-list [user]="user" />
-    } @empty {
-      <section class="card">
-        <p class="muted">Waehle oben einen User, um seine Posts zu sehen.</p>
-      </section>
+    } @else {
+      <!-- Ansicht 1: Suche -->
+      <app-user-search (userSelected)="selectedUser.set($event)" />
     }
   </main>
 
-  <!-- 4. SignalStore: gelikte Posts -->
+  <!-- Immer sichtbar: gelikte Posts aus dem SignalStore -->
   <app-favorites />
 </div>
